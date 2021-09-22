@@ -3,7 +3,9 @@ Shell Script for automating time-lapse video creation from images, hosts on an A
 
 Here's an example time-lapse video I recorded of chilli peppers growing over an 7 month period (click to view on YouTube):
 
-<p align="center"><a href="https://www.youtube.com/embed/c2NePLQ2OQk"><img src="https://img.youtu.com/vi/mThXDhkj0aA/0.jpg" alt="Chilli Time-lapse by Mark Bailey" /></a></p>
+<p align="center"><a href="https://www.youtube.com/embed/c2NePLQ2OQk"><img src="http://img.youtube.com/vi/VIDEO-ID/0.jpg" alt="Chilli Time-lapse by Mark Bailey" /></a></p>
+
+
 
 There are many other examples in my <a href="https://www.youtube.com/channel/UCq2082CCgrotqy21P-IxtTw">Timelapses</a> playlist on YouTube.
 
