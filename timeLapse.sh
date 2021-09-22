@@ -22,6 +22,7 @@ PROJECT_NAME=${1}
 if [ ! -n "${PROJECT_NAME}" ]
 then
 	echo "$0 - Error \${PROJECT_NAME} not set or NULL"
+	exit 1
 else
 	continue
 fi
