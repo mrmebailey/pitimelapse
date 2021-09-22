@@ -19,13 +19,31 @@ WEB_ROOT="/var/www/html"
 #
 PROJECT_NAME=${1}
 
-if [ ! -n "${PROJECT_NAME}" ]
-then
-	echo "$0 - Error \${PROJECT_NAME} not set or NULL"
-	exit 1
-else
-	continue
-fi
+display_usage() { 
+	echo "This script will create a folder in the HTML Root with the project name" 
+	echo -e "\nUsage: \$0 [Project Name in HTML Root to be created, no spaces...] \n" 
+	} 
+# if null display usage
+	if [ ! -n "${PROJECT_NAME}" ]
+	then
+		display_usage
+		exit 1
+	fi
+# if less than two arguments supplied, display usage 
+	if [  $# -gt 1 ] 
+	then 
+		display_usage
+		exit 1
+	fi 
+ 
+# check whether user had supplied -h or --help . If yes display usage 
+	if [[ ( $# == "--help") ||  $# == "-h" ]] 
+	then 
+		display_usage
+		exit 0
+	fi 
+
+
 
 #
 # Make the project root if it does not exist
@@ -69,6 +87,8 @@ else
 	cp timelapse_banner.mp4 timelapse_banner_static.mp4
 	rm pictures.txt
 fi
+
+
 
 exit 0
 
