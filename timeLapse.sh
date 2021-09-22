@@ -1,20 +1,42 @@
 #!/bin/bash
 
+#
+# Variables for the watermark on the video
+#
 month=`date +%B`
 d=`date +%d%m%y`
 dayofmonth=`date +%d`
 t=`date +%T`
 esc_time=`echo $t | sed 's/:/\\\:/g'`
 
-
+#
+# Apache root for easy viewing over HTTP
+#
 WEB_ROOT="/var/www/html"
+
+#
+# Project name comes in from command line as the first variable
+#
 PROJECT_NAME=${1}
 
+if [ ! -n "${PROJECT_NAME}" ]
+then
+	echo "$0 - Error \${PROJECT_NAME} not set or NULL"
+else
+	continue
+fi
+
+#
+# Make the project root if it does not exist
+# Think about how to prevent overwriting a project
+# that has just been copied from cron entry.
+#
 mkdir -p ${WEB_ROOT}/${PROJECT_NAME}
 
 PROJECT_HOME=${WEB_ROOT}/${PROJECT_NAME}
- 
+
 cd ${PROJECT_HOME}
+
 
 START_DATE=$(ls -lt | tail -1)
 
