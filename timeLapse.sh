@@ -43,8 +43,6 @@ display_usage() {
 		exit 0
 	fi 
 
-
-
 #
 # Make the project root if it does not exist
 # Think about how to prevent overwriting a project
@@ -88,7 +86,9 @@ else
 	#
 	# Should breakout into a funtion for reuse to tune 
 	# height, width and quality, I hope I can do this before
-	# DevCon but stick with good comments for now.
+	# DevCon but stick with good comments for now.  Quality
+	# set at 30 as anything higher the pi cannot process the
+	# video...
 	#
 	raspistill -o ${NEW_FILE}.jpg -w 1024 -h 768 -q 30
 
