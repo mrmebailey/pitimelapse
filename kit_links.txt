@@ -1,0 +1,33 @@
+#
+# For the HD Setup
+#
+
+# Pi 4 Model B Starter Kit
+# If you have HDMI, Memory Cards, Cables and chargers just get a cheaper Pi only
+£78.50		https://thepihut.com/collections/raspberry-pi-kits-and-bundles/products/raspberry-pi-starter-kit
+
+# Telephoto 16mm Lens
+£49.50		https://thepihut.com/products/raspberry-pi-high-quality-camera-lens		
+
+# HD Camera Module
+£49.50		https://thepihut.com/products/raspberry-pi-high-quality-camera-module
+
+# Tripod
+£4		https://thepihut.com/products/flexible-camera-tripod
+
+# Pro Mounting Plate for Pi4
+£5		https://thepihut.com/products/mounting-plate-for-high-quality-camera?variant=31867507146814
+
+#
+# Lesser Camera & Pi Model 3 as used in the 6 Month wide angle chilli time lapse
+#
+
+# Pi Model 3
+£33.90		https://thepihut.com/collections/raspberry-pi/products/raspberry-pi-3-model-b-plus
+
+# Camera Module V2
+£24		https://thepihut.com/collections/raspberry-pi-camera/products/raspberry-pi-camera-module
+
+
+
+
