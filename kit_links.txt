@@ -28,6 +28,9 @@
 # Camera Module V2
 £24		https://thepihut.com/collections/raspberry-pi-camera/products/raspberry-pi-camera-module
 
+# Camera V2 Mount
+£3		https://thepihut.com/collections/raspberry-pi-camera/products/modmypi-mini-camera-stand-no-lens
 
-
+# Basic Case
+£6		https://thepihut.com/collections/raspberry-pi-3-cases/products/modular-raspberry-pi-case
 
