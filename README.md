@@ -9,7 +9,7 @@
 * [Install Video software](#ffmpeg)
 * [Install piLapse](#install-pilapse)
 
-* [Installation](#installation)
+* [Testing](#testing)
 
 # Overview
 Shell Script for automating time-lapse video creation from images, hosts on an Apache Web Server for easy viewing.
@@ -64,7 +64,7 @@ Check it installed by checking the version
 ffmpeg -version
 ```
 
-#Iinstall piLapse
+# Install piLapse
 
 Install Pi-Lapse as Pi
 
