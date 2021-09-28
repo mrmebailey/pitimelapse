@@ -59,37 +59,70 @@ cd ${PROJECT_HOME}
 
 START_DATE=$(ls -lt | tail -1)
 
+#
+# We build a file list dynamically as ffmpeg expects a squential list of pictures
+# and fails if it does not get them.  You will almost certainly want to delete 
+# anmolies like your washing or if you get a failure to remove a day.
+#
 FILE=`ls -ltr | grep -vE "timelapse|pictures" | tail -1 | awk '{print $9}' | sed "s/\.jpg//g"`
 
+#
+# If there is no file then we are creating the very first pictrure
+#
 if [ -z ${FILE} ] ;
-then 
+then
+	#
+	# Setting the quality width, height & quality to 30 seems the 
+	# best balance for HD camera for longer projects.
+	#
 	raspistill -o 1.jpg -w 1024 -h 768 -q 30
-	#raspistill -o 1.jpg 
+
 else
+	#
+	# We still expect squential file naming so add one and remove 
+	# the previous timelapse video as it will fail if already present
+	#
 	NEW_FILE=$(($FILE+1))
 	rm -f timelapse.mp4
 
+	#
+	# Should breakout into a funtion for reuse to tune 
+	# height, width and quality, I hope I can do this before
+	# DevCon but stick with good comments for now.
+	#
 	raspistill -o ${NEW_FILE}.jpg -w 1024 -h 768 -q 30
-	#raspistill -o ${NEW_FILE}.jpg 
 
 	sleep 10
 	
+	#
+	# Build the file list of files that exist as gaps will cause ffmpeg to 
+	# fail with a warning.
+	#
 	ls | grep -E "[0-9].jpg" | sort -n  | sed "s/^/file /g" > pictures.txt
 
+	#
+	# Use nice to lower priority although it should not be doing anything else but did cause 
+	# CPU to spike otherwise.
+	###########     Concat     Rel Path   Pics List    Set Codec & Video formats C:V
 	nice -15 ffmpeg -f concat -safe 0 -i pictures.txt -c:v libx264 -pix_fmt yuv420p timelapse.mp4
-	
-	# nice -15 ffmpeg -framerate 25 -start_number 1 -i %d.jpg -c:v libx264 -c:a copy timelapse.mp4
 
+	#
+	# Remove the previous
+	#
 	rm -f timelapse_banner.mp4
 
+	#
+	# Add on the banner
+	#
 	ffmpeg -i timelapse.mp4 -vf "drawtext=text='Project ${PROJECT_NAME} to $month the $dayofmonth at $esc_time':x=(w-text_w)/2:y=h-th-40:fontsize=30:fontcolor=red" -c:a copy timelapse_banner.mp4
 
+	#
+	# Create a static version of the file that would not be written to so
+	# can easily be viewed from a web browser.
+	#
 	cp timelapse_banner.mp4 timelapse_banner_static.mp4
 	rm pictures.txt
 fi
-
-
-
 exit 0
 
 
