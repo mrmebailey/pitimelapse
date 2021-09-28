@@ -99,7 +99,7 @@ else
 	# fail with a warning.
 	#
 	ls | grep -E "[0-9].jpg" | sort -n  | sed "s/^/file /g" > pictures.txt
-
+	OLDEST=$(ls -t | tail -1 | date -r 1.jpg +"%d %B")
 	#
 	# Use nice to lower priority although it should not be doing anything else but did cause 
 	# CPU to spike otherwise.
@@ -114,7 +114,7 @@ else
 	#
 	# Add on the banner
 	#
-	ffmpeg -i timelapse.mp4 -vf "drawtext=text='Project ${PROJECT_NAME} to $month the $dayofmonth at $esc_time':x=(w-text_w)/2:y=h-th-40:fontsize=30:fontcolor=red" -c:a copy timelapse_banner.mp4
+	ffmpeg -i timelapse.mp4 -vf "drawtext=text='Project ${PROJECT_NAME} from ${OLDEST} to $month the $dayofmonth at $esc_time':x=(w-text_w)/2:y=h-th-40:fontsize=20:fontcolor=red" -c:a copy timelapse_banner.mp4
 
 	#
 	# Create a static version of the file that would not be written to so
