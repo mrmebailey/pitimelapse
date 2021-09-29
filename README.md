@@ -15,12 +15,12 @@
 # Overview
 Shell Script for automating time-lapse video creation from images, hosts on an Apache Web Server for easy viewing.
 
-Here's an example time-lapse video I recorded of chilli peppers growing over an 7 month period (click to view on YouTube):
-
-[![SC2 Video](https://img.youtube.com/vi/c2NePLQ2OQk/0.jpg)](https://www.youtube.com/embed/c2NePLQ2OQk)
-
 Another over a much shorter period in HD which was taken every 10 minutes.
 [![SC2 Video](https://img.youtube.com/vi/qcc47tjRBUc/0.jpg)](https://www.youtube.com/embed/qcc47tjRBUc)
+
+Here's an example time-lapse video I recorded of chilli peppers growing over an 7 month period (click to view on YouTube):
+[![SC2 Video](https://img.youtube.com/vi/c2NePLQ2OQk/0.jpg)](https://www.youtube.com/embed/c2NePLQ2OQk)
+
 
 There are other examples in my <a href="https://www.youtube.com/channel/UCq2082CCgrotqy21P-IxtTw">Timelapses</a> playlist on YouTube.
 
