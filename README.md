@@ -8,18 +8,19 @@
 * [Install Apache 2](#install-apache)
 * [Install Video software](#ffmpeg)
 * [Install piLapse](#install-pilapse)
-
+* [VNC Install](#vnc-install-pi-hd-lens-only)
+* [Camera Focus](#camera-focus-pi-hd-lens-only)
 * [Testing](#testing)
 
 # Overview
 Shell Script for automating time-lapse video creation from images, hosts on an Apache Web Server for easy viewing.
 
-Here's an example time-lapse video I recorded of chilli peppers growing over an 7 month period (click to view on YouTube):
-
-[![SC2 Video](https://img.youtube.com/vi/c2NePLQ2OQk/0.jpg)](https://www.youtube.com/embed/c2NePLQ2OQk)
-
 Another over a much shorter period in HD which was taken every 10 minutes.
 [![SC2 Video](https://img.youtube.com/vi/qcc47tjRBUc/0.jpg)](https://www.youtube.com/embed/qcc47tjRBUc)
+
+Here's an example time-lapse video I recorded of chilli peppers growing over an 7 month period (click to view on YouTube):
+[![SC2 Video](https://img.youtube.com/vi/c2NePLQ2OQk/0.jpg)](https://www.youtube.com/embed/c2NePLQ2OQk)
+
 
 There are other examples in my <a href="https://www.youtube.com/channel/UCq2082CCgrotqy21P-IxtTw">Timelapses</a> playlist on YouTube.
 
@@ -86,11 +87,35 @@ This script will create a folder in the HTML Root with the project name
 Usage: $0 [Project Name in HTML Root to be created, no spaces...]
 ```
 
-# testing
+# VNC Install Pi HD lens Only
+Becuase the Pi runs headless we need to use VNC to logon to the Pi in order to focus the camera as no display is attached.
+```bash
+sudo apt update
+sudo apt install realvnc-vnc-server realvnc-vnc-viewer
+```
+Now we need to enable VNC in raspi-config
+```bash
+sudo raspi-config
+```
+Navigate to Interfacing Options.
+
+Scroll down and select VNC › Yes.
+
+# Camera Focus Pi HD lens Only
+Connect to the pi by donwloading VNC Viewer and execute raspistill in live mode using the 
+command below.
+
+```bash
+raspistill -t -0
+```
+
+![Alt Image text](/resources/vnc_camera_command.png?raw=true "Camera Command")
+
+Focus the camera on your subject in live view, do not forget to lock off the lens screws
+
+![Alt Image text](/resources/vnc_focus.png?raw=true "Camera Command")
+
+
+# Your First Time-Lapse - Lets go.....
 Now we have the script we can start testing, you will need the IP of your Pi to visit the 
 web URL.
-
-
-
-
-
