@@ -10,7 +10,7 @@
 * [Install piLapse](#install-pilapse)
 * [VNC Install](#vnc-install-pi-hd-lens-only)
 * [Camera Focus](#camera-focus-pi-hd-lens-only)
-* [Testing](#testing)
+* [First Time Lapse](#first-time-lapse)
 
 # Overview
 Shell Script for automating time-lapse video creation from images, hosts on an Apache Web Server for easy viewing.
@@ -116,6 +116,44 @@ Focus the camera on your subject in live view, do not forget to lock off the len
 ![Alt Image text](/resources/vnc_focus.png?raw=true "Camera Command")
 
 
-# Your First Time-Lapse - Lets go.....
-Now we have the script we can start testing, you will need the IP of your Pi to visit the 
-web URL.
+# First Time Lapse
+Now we have the script we can start testing, execute this command which will create the first picture and the project directory in the web root for us.
+
+```bash
+./timeLapse.sh my_first_laspe
+```
+
+If there was an issue with the camera or it is not connected properly you will get the error now, check the connections and that you have enabled the camera properly.
+
+```bash
+ls -ltr /var/www/html/my_first_laspe/
+
+pi@hdraspberry:~/pitimelapse $ ls -ltr /var/www/html/my_first_laspe/
+total 244
+-rw-r--r-- 1 pi pi 247283 Sep 30 11:12 1.jpg
+```
+
+Now when we run the script the second time it will create picture number 2 and build the videos with the data overlay and the output should look like this.
+```bash
+pi@hdraspberry:~/pitimelapse $ ./timeLapse.sh my_first_laspe
+
+pi@hdraspberry:~/pitimelapse $ ls -ltr /var/www/html/my_first_laspe/
+total 592
+-rw-r--r-- 1 pi pi 247283 Sep 30 11:12 1.jpg
+-rw-r--r-- 1 pi pi 248216 Sep 30 11:12 2.jpg
+-rw-r--r-- 1 pi pi  31630 Sep 30 11:13 timelapse.mp4
+-rw-r--r-- 1 pi pi  33383 Sep 30 11:13 timelapse_banner.mp4
+-rw-r--r-- 1 pi pi  33383 Sep 30 11:13 timelapse_banner_static.mp4
+```
+
+Now visit the pi with a browser and check your pictures and video all work...
+```bash
+http://<PI IP ADDRESS>
+```
+
+![Alt Image text](/resources/pi_first_proj.png?raw=true "Camera Command")
+
+
+
+
+
