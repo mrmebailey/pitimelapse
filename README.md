@@ -127,17 +127,22 @@ If there was an issue with the camera or it is not connected properly you will g
 
 ```bash
 ls -ltr /var/www/html/my_first_laspe/
+```
 
-pi@hdraspberry:~/pitimelapse $ ls -ltr /var/www/html/my_first_laspe/
+```bash
 total 244
 -rw-r--r-- 1 pi pi 247283 Sep 30 11:12 1.jpg
 ```
 
-Now when we run the script the second time it will create picture number 2 and build the videos with the data overlay and the output should look like this.
-```bash
-pi@hdraspberry:~/pitimelapse $ ./timeLapse.sh my_first_laspe
+Now when we run the script the second time it will create picture number 2 and build the videos with the data overlay.
 
-pi@hdraspberry:~/pitimelapse $ ls -ltr /var/www/html/my_first_laspe/
+```bash
+./timeLapse.sh my_first_laspe
+ls -ltr /var/www/html/my_first_laspe/
+```
+
+The output should something like this.
+```bash
 total 592
 -rw-r--r-- 1 pi pi 247283 Sep 30 11:12 1.jpg
 -rw-r--r-- 1 pi pi 248216 Sep 30 11:12 2.jpg
