@@ -159,6 +159,27 @@ http://<PI IP ADDRESS>
 
 ![Alt Image text](/resources/pi_first_proj.png?raw=true "Camera Command")
 
+The final part is to define the crontab entry, now the settings here will depend on the quality you want which is not currently tunable but essentially the smoother the timelapse the more pictures you need but depends on how quickly your target lapse environment changes.
+
+So for example to catch ice melting that out be each minute in a house as it will only last about 30 or 40 minutes.  The chilli peppers growing over months I found each hour was enough to show the plants growing.
+
+Chill flowers came and went within 2-3 days but that required a medium of every 10 minutes but experiment.
+
+In this example we will run every minute and show a melting lolly so lets get started....
+
+Add the cron entry by executing the below command.
+
+```bash
+(crontab -l ; echo "* * * * * /home/pi/timeLapse.sh my_first_laspe") | crontab
+```
+
+You can remove it or hash it out when you are done with this command
+
+```bash
+ ( crontab -l | grep -v -F "/home/pi/timeLapse.sh my_first_laspe" ) | crontab -
+```
+
+
 
 
 
