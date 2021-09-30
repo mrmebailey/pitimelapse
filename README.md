@@ -141,7 +141,8 @@ Now when we run the script the second time it will create picture number 2 and b
 ls -ltr /var/www/html/my_first_laspe/
 ```
 
-The output should something like this.
+The output will look like this.
+
 ```bash
 total 592
 -rw-r--r-- 1 pi pi 247283 Sep 30 11:12 1.jpg
