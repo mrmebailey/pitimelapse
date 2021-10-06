@@ -73,7 +73,7 @@ Install Pi-Lapse as Pi
 
 ```bash
 cd ${HOME}
-curl -LJO https://raw.githubusercontent.com/mrmebailey/pitimelapse/main/timeLapse.sh
+curl -LJO https://raw.githubusercontent.com/mrmebailey/pitimelapse/v1.0/timeLapse.sh
 ```
 
 Check it downloaded fine ;
