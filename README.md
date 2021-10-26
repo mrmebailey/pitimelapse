@@ -51,6 +51,7 @@ as root.
 ```bash
 sudo usermod -a -G www-data pi
 sudo chown -R -f www-data:www-data /var/www/html
+sudo chmod g+w /var/www/html
 ```
 
 ## ffmpeg
