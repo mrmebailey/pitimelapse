@@ -15,6 +15,14 @@ esc_time=`echo $t | sed 's/:/\\\:/g'`
 WEB_ROOT="/var/www/html"
 
 #
+# Filename Variables
+#
+TIMELAPSE_RAW=timelapse.mp4
+FILE_LIST=pictures.txt
+TIMELAPSE_BANNER=timelapse_banner.mp4
+TIMELAPSE_BANNER_STATIC=timelapse_banner_static.mp4
+
+#
 # Project name comes in from command line as the first variable
 #
 PROJECT_NAME=${1}
@@ -81,7 +89,7 @@ else
 	# the previous timelapse video as it will fail if already present
 	#
 	NEW_FILE=$(($FILE+1))
-	rm -f timelapse.mp4
+	rm -f ${TIMELAPSE_RAW}
 
 	#
 	# Should breakout into a funtion for reuse to tune 
@@ -98,18 +106,18 @@ else
 	# Build the file list of files that exist as gaps will cause ffmpeg to 
 	# fail with a warning.
 	#
-	ls | grep -E "[0-9].jpg" | sort -n  | sed "s/^/file /g" > pictures.txt
-	OLDEST=$(ls -t | tail -1 | date -r 1.jpg +"%d %B")
+	ls | grep -E "[0-9].jpg" | sort -n  | sed "s/^/file /g" > ${FILE_LIST}
+	OLDEST=$(ls -t | tail -1 | xargs -I {} date -r {} +"%d %B")
 	#
 	# Use nice to lower priority although it should not be doing anything else but did cause 
 	# CPU to spike otherwise.
 	###########     Concat     Rel Path   Pics List    Set Codec & Video formats C:V
-	nice -15 ffmpeg -f concat -safe 0 -i pictures.txt -c:v libx264 -pix_fmt yuv420p timelapse.mp4
+	nice -15 ffmpeg -f concat -safe 0 -i ${FILE_LIST} -c:v libx264 -pix_fmt yuv420p ${TIMELAPSE_RAW}
 
 	#
 	# Remove the previous
 	#
-	rm -f timelapse_banner.mp4
+	rm -f ${TIMELAPSE_BANNER}
 
 	#
 	# Add on the banner
@@ -120,8 +128,8 @@ else
 	# Create a static version of the file that would not be written to so
 	# can easily be viewed from a web browser.
 	#
-	cp timelapse_banner.mp4 timelapse_banner_static.mp4
-	rm pictures.txt
+	cp ${TIMELAPSE_BANNER} ${TIMELAPSE_BANNER_STATIC}
+	rm ${FILE_LIST}
 fi
 exit 0
 
