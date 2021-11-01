@@ -57,12 +57,12 @@ display_usage() {
 # that has just been copied from cron entry.
 #
 mkdir -p ${WEB_ROOT}/${PROJECT_NAME}
-
 PROJECT_HOME=${WEB_ROOT}/${PROJECT_NAME}
-
 cd ${PROJECT_HOME}
 
-
+#
+# Probably best taken from the folder creation if present
+#
 START_DATE=$(ls -lt | tail -1)
 
 #
@@ -70,7 +70,7 @@ START_DATE=$(ls -lt | tail -1)
 # and fails if it does not get them.  You will almost certainly want to delete 
 # anmolies like your washing or if you get a failure to remove a day.
 #
-FILE=`ls -ltr | grep -vE "timelapse|pictures" | tail -1 | awk '{print $9}' | sed "s/\.jpg//g"`
+FILE=`ls -ltr | grep -vE "${TIMELAPSE_RAW}|${FILE_LIST}|${TIMELAPSE_BANNER}|${TIMELAPSE_BANNER_STATIC}" | tail -1 | awk '{print $9}' | sed "s/\.jpg//g"`
 
 #
 # If there is no file then we are creating the very first pictrure
@@ -122,7 +122,7 @@ else
 	#
 	# Add on the banner
 	#
-	ffmpeg -i timelapse.mp4 -vf "drawtext=text='Project ${PROJECT_NAME} from ${OLDEST} to $month the $dayofmonth at $esc_time':x=(w-text_w)/2:y=h-th-40:fontsize=20:fontcolor=red" -c:a copy timelapse_banner.mp4
+	ffmpeg -i ${TIMELAPSE_RAW} -vf "drawtext=text='Project ${PROJECT_NAME} from ${OLDEST} to $month the $dayofmonth at $esc_time':x=(w-text_w)/2:y=h-th-40:fontsize=20:fontcolor=red" -c:a copy ${TIMELAPSE_BANNER}
 
 	#
 	# Create a static version of the file that would not be written to so
