@@ -52,8 +52,8 @@ display_usage() {
 		display_usage
 		exit 1
 	fi
-# if less than two arguments supplied, display usage 
-	if [  $# -gt 1 ] 
+# We now expect 4 arguments 
+	if [  $# -gt 4 ] 
 	then 
 		display_usage
 		exit 1
