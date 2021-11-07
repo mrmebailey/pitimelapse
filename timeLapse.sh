@@ -26,11 +26,26 @@ TIMELAPSE_BANNER_STATIC=timelapse_banner_static.mp4
 # Project name comes in from command line as the first variable
 #
 PROJECT_NAME=${1}
+WIDTH=${2}
+HIGHT=${3}
+QUALITY=${4}
+
+take_photo() { 
+	#
+	# $1 Filename
+	# $2 & $3 width and photo height
+	# $4 is quality
+	# 	
+	raspistill -o ${1} -w ${2} -h ${3} -q ${4}
+	} 
 
 display_usage() { 
-	echo "This script will create a folder in the HTML Root with the project name" 
-	echo -e "\nUsage: \$0 [Project Name in HTML Root to be created, no spaces...] \n" 
+	echo "This script will create a folder in the HTML Root with the project name and is intended to run from cron." 
+	echo -e "\nUsage: $0 [Project-Name] [WIDTH] [HEIGHT] [QUALITY] \n"
+	echo -e "Example below...\n"
+	echo -e "$0 my_first_lapse 1024 768 30" 
 	} 
+
 # if null display usage
 	if [ ! -n "${PROJECT_NAME}" ]
 	then
@@ -81,7 +96,7 @@ then
 	# Setting the quality width, height & quality to 30 seems the 
 	# best balance for HD camera for longer projects.
 	#
-	raspistill -o 1.jpg -w 1024 -h 768 -q 30
+	take_photo 1.jpg ${WIDTH} ${HEIGHT} ${QUALITY}
 
 else
 	#
@@ -98,8 +113,9 @@ else
 	# set at 30 as anything higher the pi cannot process the
 	# video...
 	#
-	raspistill -o ${NEW_FILE}.jpg -w 1024 -h 768 -q 30
-
+	#raspistill -o ${NEW_FILE}.jpg -w 1024 -h 768 -q 30
+	take_photo ${NEW_FILE}.jpg ${WIDTH} ${HEIGHT} ${QUALITY}
+	
 	sleep 10
 	
 	#
