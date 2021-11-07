@@ -27,7 +27,7 @@ TIMELAPSE_BANNER_STATIC=timelapse_banner_static.mp4
 #
 PROJECT_NAME=${1}
 WIDTH=${2}
-HIGHT=${3}
+HEIGHT=${3}
 QUALITY=${4}
 
 take_photo() { 
