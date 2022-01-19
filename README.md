@@ -105,6 +105,11 @@ Navigate to Interfacing Options.
 
 Scroll down and select VNC › Yes.
 
+The final configuration item is to allow direct capture mode in VNC Viewer highlighted below, if this is not done then live capture will just hang.
+
+![Alt Image text](/resources/direct_capture.png?raw=true "Direct Capture")
+
+
 # Camera Focus Pi HD lens Only
 Connect to the pi by donwloading VNC Viewer and execute raspistill in live mode using the 
 command below.
