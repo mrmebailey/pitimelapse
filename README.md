@@ -46,12 +46,13 @@ sudo apt update
 sudo apt-get install apache2 -y
 ```
 Adjust the Apache permissions to allow the pi user to write so the script does not need to run
-as root.
+as root and remove the deault index.html so we see the pictures in the web root.
 
 ```bash
 sudo usermod -a -G www-data pi
 sudo chown -R -f www-data:www-data /var/www/html
 sudo chmod g+w /var/www/html
+rm /var/www/html/index.html
 ```
 
 ## ffmpeg
