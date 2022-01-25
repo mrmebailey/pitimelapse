@@ -19,7 +19,7 @@ Another over a much shorter period in HD which was taken every 10 minutes.
 
 [![SC2 Video](https://img.youtube.com/vi/qcc47tjRBUc/0.jpg)](https://www.youtube.com/embed/qcc47tjRBUc)
 
-Here's an example time-lapse video I recorded of chilli peppers growing over an 7 month period (click to view on YouTube):
+Here's an example time-lapse video I recorded of chilli peppers growing over a 7 month period (click to view on YouTube):
 
 [![SC2 Video](https://img.youtube.com/vi/c2NePLQ2OQk/0.jpg)](https://www.youtube.com/embed/c2NePLQ2OQk)
 
@@ -46,7 +46,7 @@ sudo apt update
 sudo apt-get install apache2 -y
 ```
 Adjust the Apache permissions to allow the pi user to write so the script does not need to run
-as root and remove the deault index.html so we see the pictures in the web root.
+as root and remove the default index.html so we see the pictures in the web root.
 
 ```bash
 sudo usermod -a -G www-data pi
@@ -93,7 +93,7 @@ Usage: $0 [Project Name in HTML Root to be created, no spaces...]
 ```
 
 # VNC Install Pi HD lens Only
-Becuase the Pi runs headless we need to use VNC to logon to the Pi in order to focus the camera as no display is attached.
+Because the Pi runs headless we need to use VNC to logon to the Pi in order to focus the camera as no display is attached.
 ```bash
 sudo apt update
 sudo apt install realvnc-vnc-server realvnc-vnc-viewer
@@ -112,7 +112,7 @@ The final configuration item is to allow direct capture mode in VNC Viewer highl
 
 
 # Camera Focus Pi HD lens Only
-Connect to the pi by donwloading VNC Viewer and execute raspistill in live mode using the 
+Connect to the pi by downloading VNC Viewer and execute raspistill in live mode using the 
 command below.
 
 ```bash
@@ -121,7 +121,7 @@ raspistill -t -0
 
 ![Alt Image text](/resources/vnc_camera_command.png?raw=true "Camera Command")
 
-Focus the camera on your subject in live view, do not forget to lock off the lens screws
+Focus the camera on your subject in live view, do not forget to lock off the lens screws and to exit this you must use CNTL ^C from the terminal, ensure you do this before moving onto the next steps as only one process can access the camera at any one time.
 
 ![Alt Image text](/resources/vnc_focus.png?raw=true "Camera Command")
 
@@ -134,6 +134,7 @@ Now we have the script we can start testing, execute this command which will cre
 ```
 
 If there was an issue with the camera or it is not connected properly you will get the error now, check the connections and that you have enabled the camera properly.
+It is also worth noting that you will need to cancel the live view mode executed above as only one process can access the camera at any one time.  You can do this by hitting CNTL ^C.
 
 ```bash
 ls -ltr /var/www/html/my_first_laspe/
@@ -169,13 +170,13 @@ http://<PI IP ADDRESS>
 
 ![Alt Image text](/resources/pi_first_proj.png?raw=true "Camera Command")
 
-The final part is to define the crontab entry, now the settings here will depend on the quality you want which is not currently tunable but essentially the smoother the timelapse the more pictures you need but depends on how quickly your target lapse environment changes.
+The final part is to define the crontab entry, now the settings here will depend on the quality you want which is not currently tuneable but essentially the smoother the timelapse the more pictures you need but depends on how quickly your target lapse environment changes.
 
-So for example to catch ice melting that out be each minute in a house as it will only last about 30 or 40 minutes.  The chilli peppers growing over months I found each hour was enough to show the plants growing.
+So, for example to catch ice melting that out be each minute in a house as it will only last about 30 or 40 minutes.  The chilli peppers growing over months I found each hour was enough to show the plants growing.
 
 Chill flowers came and went within 2-3 days but that required a medium of every 10 minutes but experiment.
 
-In this example we will run every minute and show a melting lolly so lets get started....
+In this example we will run every minute and show a melting lolly so let's get started....
 
 Add the cron entry by executing the below command.
 
