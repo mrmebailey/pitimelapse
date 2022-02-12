@@ -110,6 +110,12 @@ The final configuration item is to allow direct capture mode in VNC Viewer highl
 
 ![Alt Image text](/resources/direct_capture.png?raw=true "Direct Capture")
 
+# Update Pi HDMI Settings for Live streaming over VNC
+Edit the file /boot/config.txt and uncomment the line below otherwise you may experience the cannot display VNC Desktop error.
+```
+# uncomment if hdmi display is not detected and composite is being output
+hdmi_force_hotplug=1
+```
 
 # Camera Focus Pi HD lens Only
 Connect to the pi by downloading VNC Viewer and execute raspistill in live mode using the 
