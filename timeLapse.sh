@@ -67,6 +67,20 @@ display_usage() {
 	fi 
 
 #
+# Simple Locking
+#
+lock(){
+        # Very simple locking to be replaced with Python
+        if mkdir /var/lock/mylock; then
+		:
+        else
+                exit 1
+        fi
+}
+
+lock
+
+#
 # Make the project root if it does not exist
 # Think about how to prevent overwriting a project
 # that has just been copied from cron entry.
@@ -147,6 +161,11 @@ else
 	cp ${TIMELAPSE_BANNER} ${TIMELAPSE_BANNER_STATIC}
 	rm ${FILE_LIST}
 fi
+
+#
+# Remove the lock
+#
+
+rm -Rf /var/lock/mylock
+
 exit 0
-
-
