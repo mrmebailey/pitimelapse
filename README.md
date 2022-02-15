@@ -55,6 +55,14 @@ sudo chmod g+w /var/www/html
 rm /var/www/html/index.html
 ```
 
+## Imagemagic
+
+Required to add timestamps to the jpg files
+
+```bash
+sudo apt-get install imagemagick
+```
+
 ## ffmpeg
 
 Install ffmpeg
