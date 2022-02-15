@@ -37,6 +37,8 @@ take_photo() {
 	# $4 is quality
 	# 	
 	raspistill -o ${1} -w ${2} -h ${3} -q ${4}
+	TS=`date -r ${1}`
+	convert ${1} -fill lime -gravity NorthEast -pointsize 40 -annotate +5+5 "\ ${TS}" ${1}
 	} 
 
 display_usage() { 
