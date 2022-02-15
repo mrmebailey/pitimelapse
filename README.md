@@ -91,7 +91,7 @@ Install Pi-Lapse as Pi
 
 ```bash
 cd ${HOME}
-curl -LJO https://raw.githubusercontent.com/mrmebailey/pitimelapse/v1.0/timeLapse.sh
+curl -LJO https://raw.githubusercontent.com/mrmebailey/pitimelapse/v1.1/timeLapse.sh
 chmod 755 ./timeLapse.sh
 ```
 
@@ -103,9 +103,13 @@ Check it downloaded fine ;
 You should see the output 
 
 ```bash
-This script will create a folder in the HTML Root with the project name
+This script will create a folder in the HTML Root with the project name and is intended to run from cron.
 
-Usage: $0 [Project Name in HTML Root to be created, no spaces...]
+Usage: ./timeLapse.sh [Project-Name] [WIDTH] [HEIGHT] [QUALITY]
+
+Example below...
+
+./timeLapse.sh my_first_lapse 1024 768 30
 ```
 
 # VNC Install Pi HD lens Only
@@ -152,7 +156,7 @@ Focus the camera on your subject in live view, do not forget to lock off the len
 Now we have the script we can start testing, execute this command which will create the first picture and the project directory in the web root for us.
 
 ```bash
-./timeLapse.sh my_first_laspe
+./timeLapse.sh my_first_laspe  1024 768 30 
 ```
 
 If there was an issue with the camera or it is not connected properly you will get the error now, check the connections and that you have enabled the camera properly.
@@ -170,7 +174,7 @@ total 244
 Now when we run the script the second time it will create picture number 2 and build the videos with the data overlay.
 
 ```bash
-./timeLapse.sh my_first_laspe
+./timeLapse.sh my_first_laspe  1024 768 30
 ls -ltr /var/www/html/my_first_laspe/
 ```
 
@@ -203,17 +207,12 @@ In this example we will run every minute and show a melting lolly so let's get s
 Add the cron entry by executing the below command.
 
 ```bash
-(crontab -l ; echo "* * * * * /home/pi/timeLapse.sh my_first_laspe") | crontab
+(crontab -l ; echo "* * * * * /home/pi/timeLapse.sh my_first_laspe  1024 768 30") | crontab
 ```
 
 You can remove it or hash it out when you are done with this command
 
 ```bash
- ( crontab -l | grep -v -F "/home/pi/timeLapse.sh my_first_laspe" ) | crontab -
+ ( crontab -l | grep -v -F "/home/pi/timeLapse.sh my_first_laspe  1024 768 30" ) | crontab -
 ```
-
-
-
-
-
 
