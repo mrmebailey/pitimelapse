@@ -6,6 +6,7 @@
 * [Prerequisites](#prerequisites)
 * [Enable Camera](#enable-camera-module)
 * [Install Apache 2](#install-apache)
+* [Install ImageMagick](#imagemagick)
 * [Install Video software](#ffmpeg)
 * [Install piLapse](#install-pilapse)
 * [VNC Install](#vnc-install-pi-hd-lens-only)
@@ -55,13 +56,20 @@ sudo chmod g+w /var/www/html
 rm /var/www/html/index.html
 ```
 
-## Imagemagic
+## Imagemagick
 
 Required to add timestamps to the jpg files
 
 ```bash
 sudo apt-get install imagemagick
 ```
+
+Check it installed by checking the version
+
+```bash
+convert --version
+```
+
 
 ## ffmpeg
 
