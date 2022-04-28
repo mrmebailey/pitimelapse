@@ -53,7 +53,7 @@ as root and remove the default index.html so we see the pictures in the web root
 sudo usermod -a -G www-data pi
 sudo chown -R -f www-data:www-data /var/www/html
 sudo chmod g+w /var/www/html
-rm /var/www/html/index.html
+sudo rm /var/www/html/index.html
 ```
 
 ## Imagemagick
