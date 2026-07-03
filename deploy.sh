@@ -1,26 +1,34 @@
 #!/bin/bash
-#
-# PiTimelapse Deploy Script
-# Pushes v2 (bash/raspistill) or v3 (Python/picamera2) to the Pi.
-#
-# Usage:
-#   ./deploy.sh [v2|v3|all]   default: all
-#
-# Prerequisites — run once on your laptop:
-#   ssh-copy-id pi@192.168.1.195
-#
+# PiTimelapse Deploy Script — run without arguments to see usage.
 
 set -e
 
 PI_HOST="pi@192.168.1.195"
 PI_HOME="/home/pi"
 WEB_ROOT="/var/www/html"
-VERSION="${1:-all}"
+VERSION="${1:-}"
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 log()  { echo "[$(date +%T)] $*"; }
 info() { echo; echo "  $*"; }
 die()  { echo "ERROR: $*" >&2; exit 1; }
+
+usage() {
+    echo "PiTimelapse Deploy Script"
+    echo "Pushes v2 (bash/raspistill) or v3 (Python/picamera2) to the Pi."
+    echo ""
+    echo "Usage: $0 <command>"
+    echo ""
+    echo "  bootstrap-pi   Install all system dependencies on the Pi (run once on a new Pi)"
+    echo "  v2             Deploy timeLapse.sh + add_stamps.sh (bash / raspistill)"
+    echo "  v3             Deploy timeLapse_v3.py (Python / picamera2 / Camera Module 3)"
+    echo "  all            Deploy both v2 and v3"
+    echo ""
+    echo "Getting started:"
+    echo "  1. ssh-copy-id ${PI_HOST}   # set up passwordless SSH (once on your laptop)"
+    echo "  2. $0 bootstrap-pi          # install dependencies on the Pi (once)"
+    echo "  3. $0 v3                    # deploy the script (repeat when updating)"
+}
 
 # ── SSH check ────────────────────────────────────────────────────────────────
 
@@ -36,14 +44,14 @@ check_ssh() {
     log "SSH OK."
 }
 
-# ── Common dependencies ───────────────────────────────────────────────────────
+# ── Bootstrap (run once on a new Pi) ─────────────────────────────────────────
 
-install_common_deps() {
-    log "Installing common system dependencies on Pi..."
+bootstrap_pi() {
+    log "Bootstrapping Pi — installing all system dependencies..."
     ssh "${PI_HOST}" bash << 'REMOTE'
         set -e
         sudo apt-get update -qq
-        sudo apt-get install -y apache2 ffmpeg imagemagick
+        sudo apt-get install -y apache2 ffmpeg imagemagick python3-picamera2 python3-pil
 
         # Allow pi user to write to the web root without sudo
         sudo usermod -a -G www-data pi
@@ -54,7 +62,7 @@ install_common_deps() {
         # Ensure /var/lock is writable by pi (for the lock dir)
         sudo chmod 1777 /var/lock
 REMOTE
-    log "Common deps installed."
+    log "Bootstrap complete."
 }
 
 # ── v2 deploy (bash + raspistill) ────────────────────────────────────────────
@@ -78,12 +86,6 @@ deploy_v2() {
 # ── v3 deploy (Python + picamera2) ───────────────────────────────────────────
 
 deploy_v3() {
-    log "Installing v3 Python dependencies on Pi..."
-    ssh "${PI_HOST}" bash << 'REMOTE'
-        set -e
-        sudo apt-get install -y python3-picamera2 python3-pil
-REMOTE
-
     log "Copying v3 script..."
     scp "${SCRIPT_DIR}/v3/timeLapse_v3.py" "${PI_HOST}:${PI_HOME}/"
     ssh "${PI_HOST}" chmod 755 "${PI_HOME}/timeLapse_v3.py"
@@ -131,9 +133,19 @@ NOTICE
 # ── Main ─────────────────────────────────────────────────────────────────────
 
 case "${VERSION}" in
-    v2|v3|all) ;;
+    bootstrap-pi|v2|v3|all) ;;
+    -h|--help)
+        usage
+        exit 0
+        ;;
+    "")
+        usage
+        exit 0
+        ;;
     *)
-        echo "Usage: $0 [v2|v3|all]"
+        echo "Unknown option: ${VERSION}"
+        echo ""
+        usage
         exit 1
         ;;
 esac
@@ -141,16 +153,16 @@ esac
 check_ssh
 
 case "${VERSION}" in
+    bootstrap-pi)
+        bootstrap_pi
+        ;;
     v2)
-        install_common_deps
         deploy_v2
         ;;
     v3)
-        install_common_deps
         deploy_v3
         ;;
     all)
-        install_common_deps
         deploy_v2
         deploy_v3
         ;;

@@ -2,8 +2,7 @@
 """
 PiTimelapse v3 — Raspberry Pi Camera Module 3 (12MP / 1080p timelapse)
 
-Requires:
-  sudo apt install -y python3-picamera2 python3-pil ffmpeg apache2 imagemagick
+First-time setup: python3 timeLapse_v3.py --bootstrap-pi
 
 Run from cron:
   * * * * * python3 /home/pi/timeLapse_v3.py my_project
@@ -52,17 +51,43 @@ _FONT_PATHS = [
 
 # ── Helpers ──────────────────────────────────────────────────────────────────
 
+_APT_PACKAGES = [
+    "python3-picamera2",
+    "python3-pil",
+    "ffmpeg",
+    "apache2",
+    "imagemagick",
+]
+
+
+def bootstrap_pi():
+    """Install all system-level dependencies. Run once on a fresh Pi."""
+    print("Bootstrapping Pi — installing system packages (requires sudo)...")
+    subprocess.run(
+        ["sudo", "apt", "install", "-y"] + _APT_PACKAGES,
+        check=True,
+    )
+    print("Bootstrap complete.")
+
+
 def display_usage():
     name = Path(sys.argv[0]).name
     print(f"PiTimelapse v3 — Raspberry Pi Camera Module 3")
     print(f"Creates/updates a timelapse project under {WEB_ROOT} — run from cron.\n")
-    print(f"Usage: {name} <project-name> [width] [height] [quality]\n")
-    print(f"  width    capture width  (default: {CAM_MAX_WIDTH})")
-    print(f"  height   capture height (default: {CAM_MAX_HEIGHT})")
-    print(f"  quality  JPEG quality 1-95 (default: {JPEG_QUALITY})\n")
-    print(f"Example:")
+    print(f"Usage: {name} <project-name> [width] [height] [quality]")
+    print(f"       {name} --bootstrap-pi\n")
+    print(f"  --bootstrap-pi  Install all system dependencies via apt (run once on a new Pi)")
+    print(f"  width           capture width  (default: {CAM_MAX_WIDTH})")
+    print(f"  height          capture height (default: {CAM_MAX_HEIGHT})")
+    print(f"  quality         JPEG quality 1-95 (default: {JPEG_QUALITY})\n")
+    print(f"Examples:")
+    print(f"  python3 {name} --bootstrap-pi")
     print(f"  python3 {name} my_lapse")
-    print(f"  python3 {name} my_lapse 1920 1080 90")
+    print(f"  python3 {name} my_lapse 1920 1080 90\n")
+    print(f"Crontab (every minute):")
+    print(f"  * * * * * python3 /home/pi/{name} my_lapse")
+    print(f"Crontab (every 5 minutes):")
+    print(f"  */5 * * * * python3 /home/pi/{name} my_lapse")
 
 
 def acquire_lock():
@@ -228,7 +253,11 @@ def main():
 
     if not args or args[0] in ("-h", "--help"):
         display_usage()
-        sys.exit(0 if args else 1)
+        sys.exit(0)
+
+    if args[0] == "--bootstrap-pi":
+        bootstrap_pi()
+        sys.exit(0)
 
     if len(args) > 4:
         display_usage()

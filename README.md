@@ -2,6 +2,7 @@
 [For better viewing, including hyperlinks, read it online at  ]:#
 [https://github.com/mrmebailey/pitimelapse/blob/main/README.md]:#
 
+* [v3 Quick Start (Camera Module 3)](#v3-quick-start-camera-module-3)
 * [Overview](#Overview)
 * [Prerequisites](#prerequisites)
 * [Enable Camera](#enable-camera-module)
@@ -12,6 +13,53 @@
 * [VNC Install](#vnc-install-pi-hd-lens-only)
 * [Camera Focus](#camera-focus-pi-hd-lens-only)
 * [First Time Lapse](#first-time-lapse)
+
+# v3 Quick Start (Camera Module 3)
+
+For a Pi with Camera Module 3 (picamera2 / 12MP), use the deploy script from your laptop.
+No manual apt installs needed — the script handles everything.
+
+### 1. Set up passwordless SSH (once on your laptop)
+
+```bash
+ssh-copy-id pi@<PI_IP>
+```
+
+### 2. Bootstrap the Pi (once — installs all dependencies)
+
+```bash
+./deploy.sh bootstrap-pi
+```
+
+This installs: `apache2`, `ffmpeg`, `imagemagick`, `python3-picamera2`, `python3-pil`,
+sets up web root permissions, and configures the lock directory.
+
+### 3. Deploy the script
+
+```bash
+./deploy.sh v3       # v3 only
+./deploy.sh all      # v2 + v3
+```
+
+Re-run step 3 whenever you update the script. Step 2 only needs to be done once.
+
+### 4. Add to crontab on the Pi
+
+```bash
+# Every minute
+(crontab -l ; echo "* * * * * python3 /home/pi/timeLapse_v3.py my_lapse") | crontab
+
+# Every 5 minutes
+(crontab -l ; echo "*/5 * * * * python3 /home/pi/timeLapse_v3.py my_lapse") | crontab
+```
+
+### 5. View the timelapse
+
+```
+http://<PI_IP>/my_lapse/timelapse_banner_static.mp4
+```
+
+---
 
 # Overview
 Shell Script for automating time-lapse video creation from images, hosts on an Apache Web Server for easy viewing.
