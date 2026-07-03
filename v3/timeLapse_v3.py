@@ -147,7 +147,8 @@ def take_photo(output_path: str, width: int, height: int, quality: int):
     except Exception:
         pass
 
-    cam.capture_file(output_path, quality=quality)
+    cam.options["quality"] = quality
+    cam.capture_file(output_path)
     cam.stop()
     cam.close()
 
